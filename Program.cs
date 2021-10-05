@@ -31,11 +31,36 @@ namespace TicTacToe
                                 Console.WriteLine("Player 1 - Enter where you want to place the character. ");
                                 Console.Write("Avaiable Places =>  ");
                                 ticTacToe.ShowAvaiblePlaces();
-                                
+
                                 int place;
                                 if (int.TryParse( Console.ReadLine(),out place))
                                 {
-                                    ticTacToe.SetCharInPlace();
+                                    if (ticTacToe.SetCharInPlace(place))
+                                    {
+                                        Console.WriteLine("Player 2 - Enter where you want to place the character. ");
+                                        Console.Write("Avaiable Places =>  ");
+                                        ticTacToe.ShowAvaiblePlaces();
+                                        if (int.TryParse(Console.ReadLine(), out place))
+                                        {
+                                            if (ticTacToe.SetCharInPlace(place))
+                                            {
+                                                continue;
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine("Invalid Place was entered");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Invalid Place was entered");
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Invalid Place was entered");
+                                    }
                                 }
                                 else
                                 {

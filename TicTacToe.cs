@@ -87,9 +87,17 @@ namespace TicTacToe
             Console.WriteLine();
         }
 
-        public void SetCharInPlace()
+        public bool SetCharInPlace(int place)
         {
+            if (place == -1 || place < 1 || place > 9)
+            {
+                Console.WriteLine("You entered Invalid Place");
+                return false;
+            }
+            availablePlaces[place-1] = -1;
+            // TODO :IMPLEMENT LOGIC FOR setting char
 
+            return true;
         }
 
     }
