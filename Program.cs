@@ -23,12 +23,13 @@ namespace TicTacToe
                         bool isGameSet = ticTacToe.SetPlayerCharacters(playerOneCharacter);
                         if (isGameSet)
                         {
-                            string currentGameStatus = "PLAYING";
-                            while (currentGameStatus.Equals("PLAYING") )
+                            bool IsADraw = true;
+                            int currentGameStatus = -1;
+                            while (currentGameStatus == -1)
                             {
                                 Console.Clear();
                                 ticTacToe.ShowCurrentGame();
-                                Console.WriteLine("====================================");
+                                Console.WriteLine("==========================================================================================");
                                 Console.WriteLine("Player 1 - Enter where you want to place the character. ");
                                 Console.Write("Avaiable Places =>  ");
                                 ticTacToe.ShowAvaiblePlaces();
@@ -39,25 +40,46 @@ namespace TicTacToe
                                     if (ticTacToe.SetCharInPlace(place-1, ticTacToe.PlayerOneCharacter))
                                     {
                                         Console.Clear();
-                                        ticTacToe.ShowCurrentGame();
-                                        Console.WriteLine("Player 2 - Enter where you want to place the character. ");
-                                        Console.Write("Avaiable Places =>  ");
-                                        ticTacToe.ShowAvaiblePlaces();
-                                        if (int.TryParse(Console.ReadLine(), out place))
+                                        if (ticTacToe.CheckForWin() == 1)
                                         {
-                                            if (ticTacToe.SetCharInPlace(place-1, ticTacToe.PlayerTwoCharacter))
+                                            Console.WriteLine("Player 1 Wins. Press Enter to continue.");
+                                            Console.ReadLine();
+                                            IsADraw = false;
+                                            break;
+
+                                        }
+                                        ticTacToe.ShowCurrentGame();
+                                        while (true && !ticTacToe.IsAnyPlaceAvailable())
+                                        {
+                                            Console.WriteLine("==========================================================================================");
+                                            Console.WriteLine("Player 2 - Enter where you want to place the character. ");
+                                            Console.Write("Avaiable Places =>  ");
+                                            ticTacToe.ShowAvaiblePlaces();
+                                            if (int.TryParse(Console.ReadLine(), out place))
                                             {
-                                                continue;
+                                                if (ticTacToe.SetCharInPlace(place - 1, ticTacToe.PlayerTwoCharacter))
+                                                {
+                                                    break;
+                                                }
+                                                else
+                                                {
+                                                    Console.WriteLine("Invalid Place was entered. Try again");
+                                                }
                                             }
                                             else
                                             {
                                                 Console.WriteLine("Invalid Place was entered");
                                             }
                                         }
-                                        else
+                                        if (ticTacToe.CheckForWin()== 1)
                                         {
-                                            Console.WriteLine("Invalid Place was entered");
+                                            Console.Clear();
+                                            Console.WriteLine("Player 2 Wins. Press Enter to continue.");
+                                            Console.ReadLine();
+                                            IsADraw = false;
+                                            break;
                                         }
+
 
                                     }
                                     else
@@ -71,6 +93,11 @@ namespace TicTacToe
                                 }
                                 //Last Line
                                 currentGameStatus = ticTacToe.CheckForWin();
+                            }
+                            if (IsADraw)
+                            {
+                                Console.WriteLine("Game Drawn. Press Enter to continue..");
+                                Console.ReadLine();
                             }
                         }
                         else
