@@ -26,6 +26,7 @@ namespace TicTacToe
                             string currentGameStatus = "PLAYING";
                             while (currentGameStatus.Equals("PLAYING") )
                             {
+                                Console.Clear();
                                 ticTacToe.ShowCurrentGame();
                                 Console.WriteLine("====================================");
                                 Console.WriteLine("Player 1 - Enter where you want to place the character. ");
@@ -35,14 +36,16 @@ namespace TicTacToe
                                 int place;
                                 if (int.TryParse( Console.ReadLine(),out place))
                                 {
-                                    if (ticTacToe.SetCharInPlace(place))
+                                    if (ticTacToe.SetCharInPlace(place-1, ticTacToe.PlayerOneCharacter))
                                     {
+                                        Console.Clear();
+                                        ticTacToe.ShowCurrentGame();
                                         Console.WriteLine("Player 2 - Enter where you want to place the character. ");
                                         Console.Write("Avaiable Places =>  ");
                                         ticTacToe.ShowAvaiblePlaces();
                                         if (int.TryParse(Console.ReadLine(), out place))
                                         {
-                                            if (ticTacToe.SetCharInPlace(place))
+                                            if (ticTacToe.SetCharInPlace(place-1, ticTacToe.PlayerTwoCharacter))
                                             {
                                                 continue;
                                             }

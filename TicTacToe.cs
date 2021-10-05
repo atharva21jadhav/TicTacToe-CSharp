@@ -87,17 +87,28 @@ namespace TicTacToe
             Console.WriteLine();
         }
 
-        public bool SetCharInPlace(int place)
+        public bool SetCharInPlace(int place, string PlayerCharacter)
         {
-            if (place == -1 || place < 1 || place > 9)
+            if (place == -1 || place < 0 || place > 8)
             {
                 Console.WriteLine("You entered Invalid Place");
                 return false;
             }
-            availablePlaces[place-1] = -1;
+            availablePlaces[place] = -1;
             // TODO :IMPLEMENT LOGIC FOR setting char
-
-            return true;
+            if(place >=0 && place <=2)
+            {
+                TictactoeArr[0, place] = PlayerCharacter;
+            }
+            else if (place >= 3 && place <= 5)
+            {
+                TictactoeArr[1, place-3] = PlayerCharacter;
+            }
+            else
+            {
+                TictactoeArr[2, place-6] = PlayerCharacter;
+            }
+                return true;
         }
 
     }
